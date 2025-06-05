@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Aesthetic Image Gallery</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #fef6ff, #e0f7fa);
+      padding: 40px 20px;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 40px;
+      color: #6a0dad;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .gallery img {
+      width: 100%;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+    }
+
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+
+    .modal img {
+      max-width: 90%;
+      max-height: 80vh;
+      border-radius: 16px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 30px;
+      right: 40px;
+      font-size: 2rem;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1> MY CAR GALLERY </h1>
+  <div class="gallery" id="gallery"></div>
+
+  <!-- Modal -->
+  <div class="modal" id="modal">
+    <span class="close-btn" onclick="closeModal()">×</span>
+    <img id="modal-img" src="" alt="Full Image">
+  </div>
+
+  <script>
+    const galleryImages = [
+ "https://images.unsplash.com/photo-1541348263662-e068662d82af?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8c3BvcnRzJTIwY2FyfGVufDB8fDB8fH",
+ "https://plus.unsplash.com/premium_photo-1686730540277-c7e3a5571553?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c3BvcnRzJTIwY2FyfGVufDB8fDB8fHww",
+ "https://images.unsplash.com/photo-1524102724373-bcf6ed410592?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8c3BvcnRzJTIwY2FyfGVufDB8fDB8fHww",
+ "https://images.unsplash.com/photo-1625231334168-35067f8853ed?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8c3BvcnRzJTIwY2FyfGVufDB8fDB8fHww",
+ "https://images.unsplash.com/photo-1562911791-c7a97b729ec5?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8c3BvcnRzJTIwY2FyfGVufDB8fDB8fHww",
+ "https://images.unsplash.com/photo-1579508542697-bb18e7d9aeaa?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHNwb3J0cyUyMGNhcnxlbnwwfHwwfHx8MA%3D%3D"
+
+  ];
+
+    const galleryContainer = document.getElementById("gallery");
+
+    // Loop through images and create img elements
+    galleryImages.forEach(src => {
+      const img = document.createElement("img");
+      img.src = src;
+      img.alt = "Gallery Image";
+      img.addEventListener("click", () => openModal(src));
+      galleryContainer.appendChild(img);
+    });
+
+    const modal = document.getElementById("modal");
+    const modalImg = document.getElementById("modal-img");
+
+    function openModal(src) {
+      modal.classList.add("active");
+      modalImg.src = src;
+    }
+
+    function closeModal() {
+      modal.classList.remove("active");
+    }
+
+    // Close modal when clicking outside the image
+    modal.addEventListener("click", function(e) {
+      if (e.target !== modalImg) {
+        closeModal();
+      }
+    });
+  </script>
+</body>
+</html>
